@@ -54,5 +54,4 @@ int stack_pop(stack* my_stack, void* return_elem)
         my_stack->stack_pointer = realloc(my_stack->stack_pointer, my_stack->size_of_stack * my_stack->size_of_elem);
     }
     return NO_ERRORS;
-
 }

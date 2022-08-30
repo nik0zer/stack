@@ -4,7 +4,9 @@
 #include <stdlib.h>
 
 #define START_STACK_SIZE 2
-#define STACK_MULTIPLY_CONST
+#define STACK_MULTIPLY_CONST 2
+#define STACK_DIVIDE_CONST 2
+#define STACK_DIVIDE_TRIGGER 4
 
 enum stack_errors
 {

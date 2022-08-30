@@ -20,16 +20,39 @@ int stack_push(stack* my_stack, void* elem)
     {
         return NULL_STACK_POINTER;
     }
+    int offset = my_stack->num_of_elem * my_stack->size_of_elem;
     if(my_stack->num_of_elem < my_stack->size_of_stack)
     {
-        int offset = my_stack->num_of_elem * my_stack->size_of_elem;
         memcpy(my_stack->stack_pointer + offset, elem, my_stack->size_of_elem);
         my_stack->num_of_elem++;
         return NO_ERRORS;
     }
     else
     {
-        
+        my_stack->size_of_stack *= STACK_MULTIPLY_CONST;
+        my_stack->stack_pointer = realloc(my_stack->stack_pointer, my_stack->size_of_stack * my_stack->size_of_elem);
     }
     return NO_ERRORS;
+}
+
+int stack_pop(stack* my_stack, void* return_elem)
+{
+    if(my_stack == NULL)
+    {
+        return NULL_STACK_POINTER;
+    }
+    if(return_elem == NULL)
+    {
+        return NULL_POINTER_OF_ELEMENT;
+    }
+    my_stack->num_of_elem--;
+    int offset = my_stack->num_of_elem * my_stack->size_of_elem;
+    memcpy(return_elem, my_stack->stack_pointer + offset, my_stack->size_of_elem);
+    if(my_stack->num_of_elem <= my_stack->size_of_stack / STACK_DIVIDE_TRIGGER)
+    {
+        my_stack->size_of_stack /= STACK_DIVIDE_CONST;
+        my_stack->stack_pointer = realloc(my_stack->stack_pointer, my_stack->size_of_stack * my_stack->size_of_elem);
+    }
+    return NO_ERRORS;
+
 }

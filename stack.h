@@ -12,7 +12,8 @@ enum stack_errors
 {
     NO_ERRORS = 0,
     NULL_POINTER_OF_ELEMENT = 1,
-    NULL_STACK_POINTER = 2
+    NULL_STACK_POINTER = 2,
+    NULL_NUM_OF_ELEM_IN_STACK = 3
 };
 
 typedef struct
@@ -28,5 +29,7 @@ int stack_init(stack* new_stack, int size_of_elem);
 int stack_push(stack* my_stack, void* elem);
 
 int stack_pop(stack* my_stack, void* return_elem);
+
+int stack_destroy(stack* my_stack);
 
 #endif

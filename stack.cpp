@@ -45,13 +45,27 @@ int stack_pop(stack* my_stack, void* return_elem)
     {
         return NULL_POINTER_OF_ELEMENT;
     }
+    if(my_stack->num_of_elem == 0)
+    {
+        return NULL_NUM_OF_ELEM_IN_STACK;
+    }
     my_stack->num_of_elem--;
     int offset = my_stack->num_of_elem * my_stack->size_of_elem;
     memcpy(return_elem, my_stack->stack_pointer + offset, my_stack->size_of_elem);
-    if(my_stack->num_of_elem <= my_stack->size_of_stack / STACK_DIVIDE_TRIGGER)
+    if(my_stack->num_of_elem <= my_stack->size_of_stack / STACK_DIVIDE_TRIGGER && my_stack->size_of_stack / STACK_DIVIDE_TRIGGER != 0)
     {
         my_stack->size_of_stack /= STACK_DIVIDE_CONST;
         my_stack->stack_pointer = realloc(my_stack->stack_pointer, my_stack->size_of_stack * my_stack->size_of_elem);
     }
+    return NO_ERRORS;
+}
+
+int stack_destroy(stack* my_stack)
+{
+    if(my_stack == NULL)
+    {
+        return NULL_STACK_POINTER;
+    }
+    free(my_stack->stack_pointer);
     return NO_ERRORS;
 }

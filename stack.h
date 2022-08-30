@@ -23,6 +23,10 @@ typedef struct
     int size_of_elem;
 } stack;
 
+int stack_init(stack* new_stack, int size_of_elem);
+
 int stack_push(stack* my_stack, void* elem);
+
+int stack_pop(stack* my_stack, void* return_elem);
 
 #endif

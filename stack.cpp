@@ -25,12 +25,13 @@ int stack_push(stack* my_stack, void* elem)
     {
         memcpy(my_stack->stack_pointer + offset, elem, my_stack->size_of_elem);
         my_stack->num_of_elem++;
-        return NO_ERRORS;
     }
     else
     {
         my_stack->size_of_stack *= STACK_MULTIPLY_CONST;
         my_stack->stack_pointer = realloc(my_stack->stack_pointer, my_stack->size_of_stack * my_stack->size_of_elem);
+        memcpy(my_stack->stack_pointer + offset, elem, my_stack->size_of_elem);
+        my_stack->num_of_elem++;
     }
     return NO_ERRORS;
 }

@@ -9,6 +9,7 @@
 #define STACK_DIVIDE_CONST 2
 #define STACK_DIVIDE_TRIGGER 4
 
+
 enum stack_errors
 {
     NO_ERRORS = 0,

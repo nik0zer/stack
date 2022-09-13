@@ -2,6 +2,9 @@
 #define STACK_H
 
 #include <stdlib.h>
+#include <errno.h>
+#define NDEBUG
+#include <assert.h>
 
 #define START_STACK_SIZE 2
 #define STACK_MULTIPLY_CONST 2
@@ -13,7 +16,9 @@ enum stack_errors
     NO_ERRORS = 0,
     NULL_POINTER_OF_ELEMENT = 1,
     NULL_STACK_POINTER = 2,
-    NULL_NUM_OF_ELEM_IN_STACK = 3
+    NULL_NUM_OF_ELEM_IN_STACK = 3,
+    CANT_ALLOCATE_MEMORY = 4,
+    CANT_REALLOCATE_MEMORY = 4
 };
 
 typedef struct

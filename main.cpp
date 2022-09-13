@@ -13,6 +13,7 @@ int main()
     int* g = (int*)malloc(sizeof(int));
     stack_pop(b, g);
     stack_pop(b, g);
+    stack_pop(b, g);
     printf("%d %d", *g, b->size_of_stack);
     
     free(g);

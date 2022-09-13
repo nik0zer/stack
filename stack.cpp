@@ -3,6 +3,11 @@
 #define NDEBUG
 #include <assert.h>
 
+#define START_STACK_SIZE 2
+#define STACK_MULTIPLY_CONST 2
+#define STACK_DIVIDE_CONST 2
+#define STACK_DIVIDE_TRIGGER 4
+
 int stack_init(stack* new_stack, int size_of_elem)
 {
     errno = NO_ERRORS;

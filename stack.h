@@ -4,12 +4,6 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#define START_STACK_SIZE 2
-#define STACK_MULTIPLY_CONST 2
-#define STACK_DIVIDE_CONST 2
-#define STACK_DIVIDE_TRIGGER 4
-
-
 enum stack_errors
 {
     NO_ERRORS = 0,

@@ -16,7 +16,7 @@ enum stack_errors
 
 enum stack_valid_check_message
 {
-    ERROR_IN_CHECK_FUNС = -1,
+    ERROR_IN_CHECK_FUNC = -1,
     STACK_VALID = 0,
     STRUCT_CANARIES_INVALID = 1,
     STACK_CANARIES_INVALID = 2

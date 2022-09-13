@@ -41,7 +41,7 @@ int check_stack_valid(stack* my_stack)
     if(my_stack == NULL)
     {
         errno = NULL_STACK_POINTER;
-        return ERROR_IN_CHECK_FUNС;
+        return ERROR_IN_CHECK_FUNC;
     }
 
     if(my_stack->end_canary_of_struct != canary_value || my_stack->start_canary_of_struct != canary_value)

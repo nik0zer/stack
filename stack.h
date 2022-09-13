@@ -14,12 +14,23 @@ enum stack_errors
     CANT_REALLOCATE_MEMORY = 4
 };
 
+enum stack_valid_check_message
+{
+    ERROR_IN_CHECK_FUNС = -1,
+    STACK_VALID = 0,
+    STRUCT_CANARIES_INVALID = 1,
+    STACK_CANARIES_INVALID = 2
+};
+
 typedef struct
 {
+    int start_canary_of_struct;
     void* stack_pointer;
     int num_of_elem;
-    int size_of_stack;
+    int num_of_alloc_stack_elem;
     int size_of_elem;
+    int offset;
+    int end_canary_of_struct;
 } stack;
 
 int stack_init(stack* new_stack, int size_of_elem);

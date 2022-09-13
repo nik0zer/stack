@@ -1,8 +1,12 @@
 #include "stack.h"
 #include <string.h>
+#define NDEBUG
+#include <assert.h>
 
 int stack_init(stack* new_stack, int size_of_elem)
 {
+    errno = NO_ERRORS;
+
     new_stack->num_of_elem = 0;
     new_stack->size_of_elem = size_of_elem;
     new_stack->size_of_stack = START_STACK_SIZE;
@@ -11,6 +15,7 @@ int stack_init(stack* new_stack, int size_of_elem)
     assert(new_stack != NULL);
     if(new_stack == NULL)
     {
+        errno = CANT_ALLOCATE_MEMORY;
         return CANT_ALLOCATE_MEMORY;
     }
 
@@ -19,15 +24,19 @@ int stack_init(stack* new_stack, int size_of_elem)
 
 int stack_push(stack* my_stack, void* elem)
 {
+    errno = NO_ERRORS;
+
     assert(elem != NULL);
     if(elem == NULL)
     {
+        errno = NULL_POINTER_OF_ELEMENT;
         return NULL_POINTER_OF_ELEMENT;
     }
 
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
+        errno = NULL_STACK_POINTER;
         return NULL_STACK_POINTER;
     }
 
@@ -41,6 +50,7 @@ int stack_push(stack* my_stack, void* elem)
         assert(my_stack->stack_pointer != NULL);
         if(my_stack->stack_pointer == NULL)
         {
+            errno = CANT_ALLOCATE_MEMORY;
             return CANT_REALLOCATE_MEMORY;
         }
     }
@@ -53,6 +63,8 @@ int stack_push(stack* my_stack, void* elem)
 
 int stack_pop(stack* my_stack, void* return_elem)
 {
+    errno = NO_ERRORS;
+
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
@@ -68,6 +80,7 @@ int stack_pop(stack* my_stack, void* return_elem)
     assert(my_stack->num_of_elem != NULL);
     if(my_stack->num_of_elem == 0)
     {
+        errno = NULL_NUM_OF_ELEM_IN_STACK;
         return NULL_NUM_OF_ELEM_IN_STACK;
     }
 
@@ -85,6 +98,7 @@ int stack_pop(stack* my_stack, void* return_elem)
         assert(my_stack->stack_pointer != NULL);
         if(my_stack->stack_pointer == NULL)
         {
+            errno = CANT_ALLOCATE_MEMORY;
             return CANT_REALLOCATE_MEMORY;
         }
     }
@@ -94,9 +108,12 @@ int stack_pop(stack* my_stack, void* return_elem)
 
 int stack_destroy(stack* my_stack)
 {
+    errno = NO_ERRORS;
+
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
+        errno = NULL_STACK_POINTER;
         return NULL_STACK_POINTER;
     }
 

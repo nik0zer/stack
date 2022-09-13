@@ -3,8 +3,6 @@
 
 #include <stdlib.h>
 #include <errno.h>
-#define NDEBUG
-#include <assert.h>
 
 #define START_STACK_SIZE 2
 #define STACK_MULTIPLY_CONST 2

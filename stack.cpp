@@ -22,6 +22,7 @@ int stack_init(stack* my_stack, int size_of_elem)
     my_stack->end_canary_of_struct = 0;
     my_stack->start_canary_of_struct = 0;
 
+    my_stack->num_of_alloc_stack_elem = START_STACK_SIZE;
     my_stack->size_of_stack_mem = 2 * sizeof(canary_stack_mem_value) + START_STACK_SIZE * size_of_elem;
 
     my_stack->offset = sizeof(canary_stack_mem_value);
@@ -31,16 +32,18 @@ int stack_init(stack* my_stack, int size_of_elem)
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
+        my_stack->num_of_alloc_stack_elem = 0;
         my_stack->size_of_stack_mem = 0;
         errno = CANT_ALLOCATE_MEMORY;
         return CANT_ALLOCATE_MEMORY;
     }
 
+
     memcpy(my_stack->stack_pointer, &canary_stack_mem_value, sizeof(canary_stack_mem_value));
     memcpy(my_stack->stack_pointer + my_stack->size_of_stack_mem - sizeof(canary_stack_mem_value), &canary_stack_mem_value,
     sizeof(canary_stack_mem_value));
 
-    my_stack->num_of_alloc_stack_elem = START_STACK_SIZE;
+    
 
     if(check_stack_valid(my_stack) != 0)
     {
@@ -65,7 +68,7 @@ int check_stack_valid(stack* my_stack)
         return STRUCT_CANARIES_INVALID;
     }
 
-    if(!(memcmp(my_stack->stack_pointer, &canary_stack_mem_value, sizeof(canary_stack_mem_value)) 
+    if((memcmp(my_stack->stack_pointer, &canary_stack_mem_value, sizeof(canary_stack_mem_value)) 
     || memcmp(my_stack->stack_pointer + my_stack->size_of_stack_mem - sizeof(canary_stack_mem_value), &canary_stack_mem_value,
     sizeof(canary_stack_mem_value))))
     {

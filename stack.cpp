@@ -209,3 +209,34 @@ int stack_destroy(stack* my_stack)
 
     return NO_ERRORS;
 }
+
+void print_stack_error(int error_code)
+{
+    switch (error_code)
+    {
+        case NO_ERRORS:
+            printf("NO ERRORS");
+            break;
+        case NULL_POINTER_OF_ELEMENT:
+            printf("NULL POINTER OF ELEMENT");
+            break;
+        case NULL_STACK_POINTER:
+            printf("NULL STACK POINTER");
+            break;
+        case NULL_NUM_OF_ELEM_IN_STACK:
+            printf("NULL NUMBERS OF ELEMENTS IN STACK");
+            break;
+        case CANT_ALLOCATE_MEMORY:
+            printf("CANT ALLOCATE MEMORY");
+            break;
+        case CANT_REALLOCATE_MEMORY:
+            printf("CANT REALLOCATE MEMORY");
+            break;
+        case INCORRECT_STACK_VALIDATION:
+            printf("INCORRECT STACK VALIDATION");
+            break;
+        default:
+            printf("NOT ERROR MESSAGE");
+            break;
+    }
+}

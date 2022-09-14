@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <errno.h>
+#include <stdio.h>
 
 enum stack_errors
 {
@@ -11,8 +12,8 @@ enum stack_errors
     NULL_STACK_POINTER = 2,
     NULL_NUM_OF_ELEM_IN_STACK = 3,
     CANT_ALLOCATE_MEMORY = 4,
-    CANT_REALLOCATE_MEMORY = 4,
-    INCORRECT_STACK_VALIDATION = 5
+    CANT_REALLOCATE_MEMORY = 5,
+    INCORRECT_STACK_VALIDATION = 6
 };
 
 enum stack_valid_check_message

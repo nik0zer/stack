@@ -240,3 +240,25 @@ void print_stack_error(int error_code)
             break;
     }
 }
+
+void print_stack_valid_check_message(int message_code)
+{
+    switch (message_code)
+    {
+        case ERROR_IN_CHECK_FUNC:
+            printf("ERROR IN VALIDATION FUNCTION");
+            break;
+        case STACK_VALID:
+            printf("STACK VALID");
+            break;
+        case STRUCT_CANARIES_INVALID:
+            printf("INVALID VALUE OF STRUCT CANARIES");
+            break;
+        case STACK_MEM_CANARIES_INVALID:
+            printf("INVALID VALUE OF STACK MEMORY CANARIES");
+            break;
+        default:
+            printf("NOT VALIDATION FUNCTION MESSAGE");
+            break;
+    }
+}

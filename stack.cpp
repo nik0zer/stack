@@ -42,6 +42,12 @@ int stack_init(stack* my_stack, int size_of_elem)
 
     my_stack->num_of_alloc_stack_elem = START_STACK_SIZE;
 
+    if(check_stack_valid(my_stack) != 0)
+    {
+        errno = INCORRECT_STACK_VALIDATION;
+        return INCORRECT_STACK_VALIDATION;
+    }
+
     return NO_ERRORS;
 }
 
@@ -57,6 +63,13 @@ int check_stack_valid(stack* my_stack)
     if(my_stack->end_canary_of_struct != canary_struct_value || my_stack->start_canary_of_struct != canary_struct_value)
     {
         return STRUCT_CANARIES_INVALID;
+    }
+
+    if(!(memcmp(my_stack->stack_pointer, &canary_stack_mem_value, sizeof(canary_stack_mem_value)) 
+    || memcmp(my_stack->stack_pointer + my_stack->size_of_stack_mem - sizeof(canary_stack_mem_value), &canary_stack_mem_value,
+    sizeof(canary_stack_mem_value))))
+    {
+        return STACK_MEM_CANARIES_INVALID;
     }
 
     return STACK_VALID;
@@ -102,6 +115,13 @@ int stack_push(stack* my_stack, void* elem)
 
     memcpy(my_stack->stack_pointer + my_stack->offset, elem, my_stack->size_of_elem);
     my_stack->num_of_elem++;
+
+    if(check_stack_valid(my_stack) != 0)
+    {
+        errno = INCORRECT_STACK_VALIDATION;
+        return INCORRECT_STACK_VALIDATION;
+    }
+
 
     return NO_ERRORS;
 }
@@ -154,6 +174,13 @@ int stack_pop(stack* my_stack, void* return_elem)
         sizeof(canary_stack_mem_value));
     }
 
+    if(check_stack_valid(my_stack) != 0)
+    {
+        errno = INCORRECT_STACK_VALIDATION;
+        return INCORRECT_STACK_VALIDATION;
+    }
+
+
     return NO_ERRORS;
 }
 
@@ -169,6 +196,13 @@ int stack_destroy(stack* my_stack)
     }
 
     free(my_stack->stack_pointer);
+
+    my_stack->num_of_elem = 0;
+    my_stack->offset = 0;
+    my_stack->size_of_elem = 0;
+    my_stack->num_of_alloc_stack_elem = 0;
+    my_stack->end_canary_of_struct = 0;
+    my_stack->start_canary_of_struct = 0;
 
     return NO_ERRORS;
 }

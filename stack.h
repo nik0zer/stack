@@ -11,7 +11,8 @@ enum stack_errors
     NULL_STACK_POINTER = 2,
     NULL_NUM_OF_ELEM_IN_STACK = 3,
     CANT_ALLOCATE_MEMORY = 4,
-    CANT_REALLOCATE_MEMORY = 4
+    CANT_REALLOCATE_MEMORY = 4,
+    INCORRECT_STACK_VALIDATION = 5
 };
 
 enum stack_valid_check_message
@@ -35,6 +36,8 @@ typedef struct
 } stack;
 
 int stack_init(stack* new_stack, int size_of_elem);
+
+int check_stack_valid(stack* my_stack);
 
 int stack_push(stack* my_stack, void* elem);
 

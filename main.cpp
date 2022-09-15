@@ -10,6 +10,8 @@ int main()
     stack_init(b, sizeof(int));
     printf("%d\n", errno);
 
+    test("test_data");
+
     int c = 5, v = 6, j = 7, k = 8, p = 9;
     printf("%d %d %d\n", b->num_of_alloc_stack_elem, b->num_of_elem, errno);
     stack_push(b, &c);

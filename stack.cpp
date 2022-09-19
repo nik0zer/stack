@@ -235,6 +235,9 @@ void print_stack_error(int error_code)
         case INCORRECT_STACK_VALIDATION:
             printf("INCORRECT STACK VALIDATION");
             break;
+        case ERROR_IN_TEST_FILE_NAME:
+            printf("ERROR IN NAME OF FILE WITH TEST DATA");
+            break;
         default:
             printf("NOT ERROR MESSAGE");
             break;

@@ -13,7 +13,8 @@ enum stack_errors
     NULL_NUM_OF_ELEM_IN_STACK = 3,
     CANT_ALLOCATE_MEMORY = 4,
     CANT_REALLOCATE_MEMORY = 5,
-    INCORRECT_STACK_VALIDATION = 6
+    INCORRECT_STACK_VALIDATION = 6,
+    ERROR_IN_TEST_FILE_NAME = 7
 };
 
 enum stack_valid_check_message
@@ -36,7 +37,7 @@ typedef struct
     int end_canary_of_struct;
 } stack;
 
-int stack_init(stack* new_stack, int size_of_elem);
+int stack_init(stack* my_stack, int size_of_elem);
 
 int check_stack_valid(stack* my_stack);
 

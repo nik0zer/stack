@@ -1,3 +1,7 @@
 a.out
-
+stack
 int_to_4byte.c
+.gitignore
+stack.o
+tests.o
+main.o

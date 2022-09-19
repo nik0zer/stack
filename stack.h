@@ -47,4 +47,8 @@ int stack_pop(stack* my_stack, void* return_elem);
 
 int stack_destroy(stack* my_stack);
 
+void print_stack_error(int error_code);
+
+void print_stack_valid_check_message(int message_code);
+
 #endif

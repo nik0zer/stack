@@ -1,4 +1,13 @@
 #include "tests.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+enum comand_codes
+{
+    DESTROY = -1,
+    PUSH = 0,
+    POP = 1
+};
 
 int test_one_test(FILE* data_file, stack* test_stack_ptr)
 {
@@ -11,14 +20,14 @@ int test_one_test(FILE* data_file, stack* test_stack_ptr)
         fscanf(data_file, "%d", &command_code);
         switch (command_code)
         {
-        case 0:
+        case PUSH:
         {
             int push_int = 0;
             fscanf(data_file, "%d", &push_int);
             stack_push(test_stack_ptr, &push_int);
             break;
         }
-        case 1:
+        case POP:
         {
             int correct_pop_int = 0;
             int correct_error_code = 0;
@@ -38,7 +47,7 @@ int test_one_test(FILE* data_file, stack* test_stack_ptr)
             }
             break;
         }
-        case -1:
+        case DESTROY:
         {
             stack_destroy(test_stack_ptr);
             return test_valid;

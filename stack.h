@@ -7,7 +7,7 @@ enum stack_errors
 {
     NO_ERRORS = 0,
     NULL_POINTER_OF_ELEMENT = 1,
-    NULL_STACK_POINTER = 2,
+    NULL_buf_ptr = 2,
     NULL_size_IN_STACK = 3,
     CANT_ALLOCATE_MEMORY = 4,
     CANT_REALLOCATE_MEMORY = 5,
@@ -26,7 +26,7 @@ enum stack_valid_check_message
 typedef struct
 {
     int struct_canary_1;
-    void* stack_pointer;
+    void* buf_ptr;
     int size;
     int capasity;
     int size_of_elem;

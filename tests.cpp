@@ -37,12 +37,14 @@ int test_one_test(FILE* data_file, stack* test_stack_ptr)
             error_code = stack_pop(test_stack_ptr, &pop_int);
             if(pop_int != correct_pop_int)
             {
-                printf("ERROR IN COMAND №%d POP RETURN INCORRECT INT(returned int: %d)\n", command_num, pop_int);
+                printf("ERROR IN COMAND №%d POP RETURN INCORRECT INT(returned int: %d)\n",
+                command_num, pop_int);
                 test_valid = 0;
             }
             if(error_code != correct_error_code)
             {
-                printf("ERROR IN COMAND №%d POP RETURN INCORRECT ERROR CODE(returned error code: %d)\n", command_num, error_code);
+                printf("ERROR IN COMAND №%d POP RETURN INCORRECT ERROR CODE(returned error code: %d)\n",
+                command_num, error_code);
                 test_valid = 0;
             }
             break;

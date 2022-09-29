@@ -5,14 +5,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+const int CANARY_STRUCT_VAL = 0;
+const int CANARY_BUF_VAL = 0;
 
-#define START_STACK_SIZE 2
-#define STACK_MULTIPLY_CONST 2
-#define STACK_DIVIDE_CONST 2
-#define STACK_DIVIDE_TRIGGER 4
-
-const int canary_struct_val = 0;
-const int canary_buf_val = 0;
+enum stack_parameters
+{
+    START_STACK_SIZE =  2,
+    STACK_MULTIPLY_CONST =  2,
+    STACK_DIVIDE_CONST =  2,
+    STACK_DIVIDE_TRIGGER =  4,
+    NUM_OF_BUF_CANARY = 2
+};
 
 int stack_init(stack* my_stack, int size_of_elem)
 {
@@ -26,9 +29,9 @@ int stack_init(stack* my_stack, int size_of_elem)
     my_stack->struct_canary_1 = 0;
 
     my_stack->capasity = START_STACK_SIZE;
-    my_stack->size_of_buf = 2 * sizeof(canary_buf_val) + START_STACK_SIZE * size_of_elem;
+    my_stack->size_of_buf = 2 * sizeof(CANARY_BUF_VAL) + START_STACK_SIZE * size_of_elem;
 
-    my_stack->offset = sizeof(canary_buf_val);
+    my_stack->offset = sizeof(CANARY_BUF_VAL);
 
     my_stack->buf_ptr = calloc(my_stack->size_of_buf, 1);
 
@@ -42,9 +45,9 @@ int stack_init(stack* my_stack, int size_of_elem)
     }
 
 
-    memcpy(my_stack->buf_ptr, &canary_buf_val, sizeof(canary_buf_val));
-    memcpy(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(canary_buf_val), &canary_buf_val,
-    sizeof(canary_buf_val));
+    memcpy(my_stack->buf_ptr, &CANARY_BUF_VAL, sizeof(CANARY_BUF_VAL));
+    memcpy(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(CANARY_BUF_VAL), &CANARY_BUF_VAL,
+    sizeof(CANARY_BUF_VAL));
 
     
 
@@ -66,14 +69,14 @@ int check_stack_valid(stack* my_stack)
         return ERROR_IN_CHECK_FUNC;
     }
 
-    if(my_stack->struct_canary_2 != canary_struct_val || my_stack->struct_canary_1 != canary_struct_val)
+    if(my_stack->struct_canary_2 != CANARY_STRUCT_VAL || my_stack->struct_canary_1 != CANARY_STRUCT_VAL)
     {
         return STRUCT_CANARIES_INVALID;
     }
 
-    if((memcmp(my_stack->buf_ptr, &canary_buf_val, sizeof(canary_buf_val)) 
-    || memcmp(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(canary_buf_val), &canary_buf_val,
-    sizeof(canary_buf_val))))
+    if((memcmp(my_stack->buf_ptr, &CANARY_BUF_VAL, sizeof(CANARY_BUF_VAL)) 
+    || memcmp(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(CANARY_BUF_VAL), &CANARY_BUF_VAL,
+    sizeof(CANARY_BUF_VAL))))
     {
         return STACK_MEM_CANARIES_INVALID;
     }
@@ -99,12 +102,12 @@ int stack_push(stack* my_stack, void* elem)
         return NULL_buf_ptr;
     }
 
-    my_stack->offset = sizeof(canary_buf_val) + my_stack->size * my_stack->size_of_elem;
+    my_stack->offset = sizeof(CANARY_BUF_VAL) + my_stack->size * my_stack->size_of_elem;
 
     if(my_stack->size >= my_stack->capasity)
     {
         my_stack->capasity *= STACK_MULTIPLY_CONST;
-        my_stack->size_of_buf = 2 * sizeof(canary_buf_val) + my_stack->capasity * my_stack->size_of_elem;
+        my_stack->size_of_buf = NUM_OF_BUF_CANARY * sizeof(CANARY_BUF_VAL) + my_stack->capasity * my_stack->size_of_elem;
         my_stack->buf_ptr = realloc(my_stack->buf_ptr, my_stack->size_of_buf);
 
         assert(my_stack->buf_ptr != NULL);
@@ -114,9 +117,9 @@ int stack_push(stack* my_stack, void* elem)
             return CANT_REALLOCATE_MEMORY;
         }
 
-        memcpy(my_stack->buf_ptr, &canary_buf_val, sizeof(canary_buf_val));
-        memcpy(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(canary_buf_val), &canary_buf_val,
-        sizeof(canary_buf_val));
+        memcpy(my_stack->buf_ptr, &CANARY_BUF_VAL, sizeof(CANARY_BUF_VAL));
+        memcpy(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(CANARY_BUF_VAL), &CANARY_BUF_VAL,
+        sizeof(CANARY_BUF_VAL));
     }
 
     memcpy(my_stack->buf_ptr + my_stack->offset, elem, my_stack->size_of_elem);
@@ -157,7 +160,7 @@ int stack_pop(stack* my_stack, void* return_elem)
 
     my_stack->size--;
 
-    my_stack->offset = sizeof(canary_buf_val)+ my_stack->size * my_stack->size_of_elem;
+    my_stack->offset = sizeof(CANARY_BUF_VAL)+ my_stack->size * my_stack->size_of_elem;
 
     memcpy(return_elem, my_stack->buf_ptr + my_stack->offset, my_stack->size_of_elem);
 
@@ -165,7 +168,7 @@ int stack_pop(stack* my_stack, void* return_elem)
     && my_stack->capasity / STACK_DIVIDE_TRIGGER != 0)
     {
         my_stack->capasity /= STACK_DIVIDE_CONST;
-        my_stack->size_of_buf = 2 * sizeof(canary_buf_val) + my_stack->capasity * my_stack->size_of_elem;
+        my_stack->size_of_buf = 2 * sizeof(CANARY_BUF_VAL) + my_stack->capasity * my_stack->size_of_elem;
         my_stack->buf_ptr = realloc(my_stack->buf_ptr, my_stack->size_of_buf);
         
         assert(my_stack->buf_ptr != NULL);
@@ -175,9 +178,9 @@ int stack_pop(stack* my_stack, void* return_elem)
             return CANT_REALLOCATE_MEMORY;
         }
 
-        memcpy(my_stack->buf_ptr, &canary_buf_val, sizeof(canary_buf_val));
-        memcpy(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(canary_buf_val), &canary_buf_val,
-        sizeof(canary_buf_val));
+        memcpy(my_stack->buf_ptr, &CANARY_BUF_VAL, sizeof(CANARY_BUF_VAL));
+        memcpy(my_stack->buf_ptr + my_stack->size_of_buf - sizeof(CANARY_BUF_VAL), &CANARY_BUF_VAL,
+        sizeof(CANARY_BUF_VAL));
     }
 
     if(check_stack_valid(my_stack) != 0)

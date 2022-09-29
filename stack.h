@@ -23,7 +23,7 @@ enum stack_valid_check_message
     STACK_MEM_CANARIES_INVALID = 2
 };
 
-typedef struct
+typedef struct stack
 {
     int struct_canary_1;
     void* buf_ptr;
@@ -33,7 +33,7 @@ typedef struct
     int offset;
     int size_of_buf;
     int struct_canary_2;
-} stack;
+};
 
 int stack_init(stack* my_stack, int size_of_elem);
 

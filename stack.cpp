@@ -67,7 +67,7 @@ int check_stack_valid(stack* my_stack)
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
-        errno = NULL_BUF_PTR;
+        errno = NULL_STACK_PTR;
         return ERROR_IN_CHECK_FUNC;
     }
 
@@ -102,8 +102,8 @@ int stack_push(stack* my_stack, void* elem)
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
-        errno = NULL_BUF_PTR;
-        return NULL_BUF_PTR;
+        errno = NULL_STACK_PTR;
+        return NULL_STACK_PTR;
     }
 
     my_stack->offset = ON_CANARY_PROT(sizeof(CANARY_BUF_VAL) +) my_stack->size * my_stack->size_of_elem;
@@ -148,7 +148,7 @@ int stack_pop(stack* my_stack, void* return_elem)
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
-        return NULL_BUF_PTR;
+        return NULL_STACK_PTR;
     }
 
     assert(return_elem != NULL);
@@ -208,8 +208,8 @@ int stack_destroy(stack* my_stack)
     assert(my_stack != NULL);
     if(my_stack == NULL)
     {
-        errno = NULL_BUF_PTR;
-        return NULL_BUF_PTR;
+        errno = NULL_STACK_PTR;
+        return NULL_STACK_PTR;
     }
 
     free(my_stack->buf_ptr);
@@ -236,7 +236,7 @@ void print_stack_error(int error_code)
         case NULL_POINTER_OF_ELEMENT:
             printf("NULL POINTER OF ELEMENT");
             break;
-        case NULL_BUF_PTR:
+        case NULL_STACK_PTR:
             printf("NULL STACK POINTER");
             break;
         case NULL_SIZE_OF_STACK:

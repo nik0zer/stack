@@ -3,12 +3,19 @@
 
 #include <errno.h>
 
+#define CANARY_PROT
+#ifdef CANARY_PROT
+#define ON_CANARY_PROT(...) __VA_ARGS__
+#else
+#define ON_CANARY_PROT(...)
+#endif
+
 enum stack_errors
 {
     NO_ERRORS = 0,
     NULL_POINTER_OF_ELEMENT = 1,
-    NULL_buf_ptr = 2,
-    NULL_size_IN_STACK = 3,
+    NULL_BUF_PTR = 2,
+    NULL_SIZE_OF_STACK = 3,
     CANT_ALLOCATE_MEMORY = 4,
     CANT_REALLOCATE_MEMORY = 5,
     INCORRECT_STACK_VALIDATION = 6,
@@ -23,17 +30,17 @@ enum stack_valid_check_message
     STACK_MEM_CANARIES_INVALID = 2
 };
 
-typedef struct stack
+typedef struct
 {
-    int struct_canary_1;
+    ON_CANARY_PROT(int struct_canary_1;)
     void* buf_ptr;
     int size;
     int capasity;
     int size_of_elem;
     int offset;
     int size_of_buf;
-    int struct_canary_2;
-};
+    ON_CANARY_PROT(int struct_canary_2;)
+}stack;
 
 int stack_init(stack* my_stack, int size_of_elem);
 

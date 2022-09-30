@@ -5,16 +5,16 @@ CFLAGS=-g -fsanitize=address,leak -c
 
 all: stack
 
-stack: main.o tests.o stack.o
+stack: main.o tests.o stack.o stack.h tests.h
 	$(CC) -fsanitize=address,leak main.o tests.o stack.o -o stack
 
-main.o: main.cpp
+main.o: main.cpp stack.h tests.h
 	$(CC) $(CFLAGS) main.cpp
 
-stack.o: stack.cpp
+stack.o: stack.cpp stack.h tests.h
 	$(CC) $(CFLAGS) stack.cpp
 
-tests.o: tests.cpp
+tests.o: tests.cpp stack.h tests.h
 	$(CC) $(CFLAGS) tests.cpp
 
 clean:

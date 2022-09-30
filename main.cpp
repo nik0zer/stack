@@ -3,6 +3,6 @@
 
 int main()
 {
-    test("test_data");
     ON_CANARY_PROT(printf("CANARY_PROT\n");)
+    test("test_data");
 }

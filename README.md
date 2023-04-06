@@ -6,4 +6,4 @@
 # HOW TO BUILD AND RUN
 #### to build, run the Makefile
 #### to launch, run stack (currently runs the stack testing function)
-#### to use it as a library, connect stack.h and compile stack.cpp
+#### to use it as a library, include stack.h and compile stack.cpp
